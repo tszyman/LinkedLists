@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/26 21:09:42 by tszymans         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:24:49 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ typedef struct s_node
 
 void	insert_end(t_node **root, int value);
 void	deallocate(t_node **root);
+void	insert_beg(t_node **root, int value);
 
 #endif
