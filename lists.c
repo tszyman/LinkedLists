@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/26 21:08:01 by tszymans         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:20:39 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ void	insert_end(t_node **root, int value)
 	curr->next = new_node;
 }
 
+void	deallocate(t_node **root)
+{
+	t_node	*curr;
+	t_node	*aux;
+
+	curr = *root;
+	while (curr != NULL)
+	{
+		aux = curr;
+		curr = curr->next;
+		free(aux);
+	}
+	*root = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*root;
@@ -53,5 +68,6 @@ int	main(int argc, char **argv)
 		printf("%d\n", curr->x);
 		curr = curr->next;
 	}
+	deallocate(&root);
 	return (0);
 }
