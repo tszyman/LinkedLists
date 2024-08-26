@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/26 20:42:43 by tszymans         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:46:03 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	main(int argc, char **argv)
 	root.x = 15;
 	root.next = malloc(sizeof(t_node));
 	root.next->x = 29;
-	root.next->next = NULL;
+	root.next->next = malloc(sizeof(t_node));
+	root.next->next->x = 35;
+	root.next->next->next = NULL;
 	curr = &root;
 	while (curr != NULL)
 	{
@@ -29,6 +31,7 @@ int	main(int argc, char **argv)
 		curr = curr->next;
 	}
 
+	free(root.next->next);
 	free(root.next);
 	return (0);
 }
