@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/26 21:29:42 by tszymans         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:51:58 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	insert_end(t_node **root, int value)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		exit(1);
+		exit (1);
 	new_node->next = NULL;
 	new_node->x = value;
 	if (*root == NULL)
 	{
 		*root = new_node;
-		return;
+		exit (2);
 	}
 	curr = *root;
 	while (curr->next != NULL)
@@ -55,11 +55,23 @@ void	insert_beg(t_node **root, int value)
 	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
-	if(!new_node)
-		exit(3);
+	if (!new_node)
+		exit (3);
 	new_node->x = value;
 	new_node->next = *root;
 	*root = new_node;
+}
+
+void	insert_after(t_node *node, int value)
+{
+	t_node	*new_node;
+
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		exit (4);
+	new_node->x = value;
+	new_node->next = node->next;
+	node->next = new_node;
 }
 
 int	main(int argc, char **argv)
@@ -69,12 +81,15 @@ int	main(int argc, char **argv)
 
 	root = malloc(sizeof(t_node));
 	if (!root)
-		exit(2);
+		return (1);
 	root->x = 15;
 	root->next = NULL;
+	insert_after(root, 16);
 	insert_end(&root, -2);
 	insert_end(&root, 11);
 	insert_beg(&root, 7);
+	insert_after(root, 8);
+	insert_after(root->next->next->next->next->next, 99);
 	curr = root;
 	while (curr != NULL)
 	{
