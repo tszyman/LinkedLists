@@ -6,7 +6,7 @@
 /*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/26 20:32:56 by tszymans         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:49:20 by tszymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ typedef struct s_node
 	int				x;
 	struct s_node	*next;
 }	t_node;
+
+void	insert_end(t_node **root, int value);
 
 #endif
