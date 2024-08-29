@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/29 22:35:39 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/29 23:12:23 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	deallocate(t_node **root);
 void	insert_beg(t_node **root, int value);
 void	insert_after(t_node *node, int value);
 void	insert_sorted(t_node **root, int value);
+void	remove_element(t_node **root, int value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/29 22:57:04 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/29 23:26:40 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,33 @@ void	insert_sorted(t_node **root, int value)
 	}
 	insert_after(curr, value);
 }
+void	remove_element(t_node **root, int value)
+{
+	t_node	*curr;
+	t_node	*to_remove;
+
+	if (*root == NULL)
+		return ;
+	if ((*root)->x == value)
+	{
+		to_remove = *root;
+		*root = (*root)->next;
+		free(to_remove);
+		return ;
+	}
+	curr = *root;
+	while (curr->next != NULL)
+	{
+		if (curr->next->x == value)
+		{
+			to_remove = curr->next;
+			curr->next = curr->next->next;
+			free(to_remove);
+			return ;
+		}
+		curr = curr->next;
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -109,6 +136,7 @@ int	main(int argc, char **argv)
 	insert_sorted(&root, 3);
 	insert_sorted(&root, 4);
 	insert_sorted(&root, 6);
+	remove_element(&root, 3);
 	//root->x = 15;
 	//root->next = NULL;
 	// insert_after(root, 16);
