@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tszymans <tszymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/26 21:51:58 by tszymans         ###   ########.fr       */
+/*   Updated: 2024/08/29 22:57:04 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,28 @@ void	insert_after(t_node *node, int value)
 	node->next = new_node;
 }
 
+void	insert_sorted(t_node **root, int value)
+{
+	t_node	*curr;
+
+	if (*root == NULL || (*root)->x >= value) // if list is empty or value is less than root value - add at the beginning
+	{
+		insert_beg(root, value);
+		return ;
+	}
+	curr = *root;
+	while (curr->next != NULL)	//iterate 
+	{
+		if (curr->next->x >= value)
+		{
+			insert_after(curr, value);
+			return ;
+		}
+		curr = curr->next;
+	}
+	insert_after(curr, value);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*root;
@@ -82,14 +104,19 @@ int	main(int argc, char **argv)
 	root = malloc(sizeof(t_node));
 	if (!root)
 		return (1);
-	root->x = 15;
-	root->next = NULL;
-	insert_after(root, 16);
-	insert_end(&root, -2);
-	insert_end(&root, 11);
-	insert_beg(&root, 7);
-	insert_after(root, 8);
-	insert_after(root->next->next->next->next->next, 99);
+	root = NULL;
+	insert_sorted(&root, 5);
+	insert_sorted(&root, 3);
+	insert_sorted(&root, 4);
+	insert_sorted(&root, 6);
+	//root->x = 15;
+	//root->next = NULL;
+	// insert_after(root, 16);
+	// insert_end(&root, -2);
+	// insert_end(&root, 11);
+	// insert_beg(&root, 7);
+	// insert_after(root, 8);
+	// insert_after(root->next->next->next->next->next, 99);
 	curr = root;
 	while (curr != NULL)
 	{
