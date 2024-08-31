@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 15:09:57 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/31 23:44:54 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	insert_sorted(t_node **root, int value)
 	}
 	insert_after(curr, value);
 }
+
 void	remove_element(t_node **root, int value)
 {
 	t_node	*curr;
@@ -122,6 +123,7 @@ void	remove_element(t_node **root, int value)
 		curr = curr->next;
 	}
 }
+
 void	reverse_list(t_node **root)
 {
 	t_node	*pre; //previous
@@ -203,14 +205,12 @@ int	main(int argc, char **argv)
 		printf("Linked list has a loop\n");
 		return (1);
 	}
-	
 	// Removing elements
 	//remove_element(&root, 3);
-	
+
 	// Reversing a list
 	//reverse_list(&root);
-	
-	
+
 	//root->x = 15;
 	//root->next = NULL;
 	// insert_after(root, 16);
