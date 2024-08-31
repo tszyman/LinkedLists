@@ -6,11 +6,29 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 15:47:06 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/31 16:08:57 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dbl_lists.h"
+
+void	deallocate(t_node **tail, t_node **head)
+{
+	t_node	*curr;
+
+	if (tail == NULL)
+		return ;
+	curr = *tail;
+	while (curr->next != NULL)
+	{
+		curr = curr->next;
+		free(curr->prev);
+	}
+	free(curr);
+	*tail = NULL;
+	*head = NULL;
+}
+
 
 int	main(int argc, char **argv)
 {
@@ -44,6 +62,16 @@ int	main(int argc, char **argv)
 		printf("%d\n", curr->x);
 		curr = curr->next;
 	}
+
+	//reversed
+	printf("Reversed list\n");
+		curr = head;
+	while (curr != NULL)
+	{
+		printf("%d\n", curr->x);
+		curr = curr->prev;
+	}
+	deallocate(&tail, &head);
 
 	return (0);
 }
