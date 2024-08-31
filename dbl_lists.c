@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/09/01 00:19:28 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 00:27:55 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	main(int argc, char **argv)
 	t_node	*tail;
 	t_node	*head;
 	t_node	*curr;
+	t_node	*aux;
 
 	init(&tail, &head, 7);
 	insert_beg(&tail, 3);
@@ -109,6 +110,11 @@ int	main(int argc, char **argv)
 	insert_end(&head, 9);
 	insert_after(tail->next->next, 8);
 	remove_node(tail->next->next);
+	//if we want to remove tail (or head) we need to update tail (or head)
+	aux = tail->next;
+	remove_node(tail);
+	tail = aux;
+	
 	curr = tail;
 	while (curr != NULL)
 	{
