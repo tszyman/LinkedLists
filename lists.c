@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 12:55:20 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/31 14:59:21 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,23 @@ void	reverse_list(t_node **root)
 	*root = pre;
 }
 
+int		has_loops(t_node *root)
+{
+	t_node	*slow;
+	t_node	*fast;
+
+	slow = root;
+	fast = root;
+	while (slow != NULL && fast != NULL && fast->next != NULL)
+	{
+		slow = slow->next;
+		fast = fast->next->next;
+		if (slow == fast)
+			return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*root;
@@ -155,8 +172,23 @@ int	main(int argc, char **argv)
 	insert_sorted(&root, 4);
 	insert_sorted(&root, 6);
 	insert_sorted(&root, 7);
-	remove_element(&root, 3);
-	reverse_list(&root);
+
+	// Finding loops
+	//root->next->next->next->next->next = root->next;
+
+	if (has_loops(root) == 1)
+	{
+		printf("Linked list has a loop\n");
+		return (1);
+	}
+	
+	// Removing elements
+	//remove_element(&root, 3);
+	
+	// Reversing a list
+	//reverse_list(&root);
+	
+	
 	//root->x = 15;
 	//root->next = NULL;
 	// insert_after(root, 16);

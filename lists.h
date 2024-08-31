@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/29 23:43:27 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/31 14:59:37 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	insert_after(t_node *node, int value);
 void	insert_sorted(t_node **root, int value);
 void	remove_element(t_node **root, int value);
 void	reverse_list(t_node **root);
+int		has_loops(t_node *root);
 
 #endif
