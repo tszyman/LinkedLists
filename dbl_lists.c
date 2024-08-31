@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 16:08:57 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/31 23:41:12 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,47 @@ void	deallocate(t_node **tail, t_node **head)
 	*head = NULL;
 }
 
+void	insert_beg(t_node **tail, int value)
+{
+	t_node	*new_node;
+
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		exit(1);
+	new_node->x = value;
+	new_node->prev = NULL;
+	new_node->next = *tail;
+	(*tail)->prev = new_node;
+	*tail = new_node;
+}
+
+void	init(t_node **tail, t_node **head, int value)
+{
+	t_node	*new_node;
+
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		exit(2);
+	new_node->x = value;
+	new_node->prev = NULL;
+	new_node->next = NULL;
+	*tail = new_node;
+	*head = new_node;
+}
+
+void	insert_end(t_node **head, int value)
+{
+	t_node	*new_node;
+
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		exit(3);
+	new_node->x = value;
+	new_node->prev = *head;
+	new_node->next = NULL;
+	(*head)->next = new_node;
+	*head = new_node;
+}
 
 int	main(int argc, char **argv)
 {
@@ -36,26 +77,10 @@ int	main(int argc, char **argv)
 	t_node	*head;
 	t_node	*curr;
 
-
-	tail = malloc(sizeof(t_node));
-	if (!tail)
-		exit(0);
-	tail->x = 1;
-	tail->prev = NULL;
-	tail->next = malloc(sizeof(t_node));
-	if (!tail->next)
-		exit(1);
-	tail->next->x = 3;
-	tail->next->prev = tail;
-	tail->next->next = malloc(sizeof(t_node));
-	if (!tail->next->next)
-		exit(2);
-	tail->next->next->x = 7;
-	tail->next->next->prev = tail->next;
-	tail->next->next->next = NULL;
-
-	head = tail->next->next;
-
+	init(&tail, &head, 7);
+	insert_beg(&tail, 3);
+	insert_beg(&tail, 1);
+	insert_end(&head, 9);
 	curr = tail;
 	while (curr != NULL)
 	{
@@ -65,7 +90,7 @@ int	main(int argc, char **argv)
 
 	//reversed
 	printf("Reversed list\n");
-		curr = head;
+	curr = head;
 	while (curr != NULL)
 	{
 		printf("%d\n", curr->x);
