@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 14:59:21 by tomek            ###   ########.fr       */
+/*   Updated: 2024/08/31 15:09:57 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,28 @@ int		has_loops(t_node *root)
 	return (0);
 }
 
+int		count(t_node *root)
+{
+	int		i;
+	t_node	*curr;
+
+	curr = root;
+	i = 0;
+	while (curr != NULL)
+	{
+		curr = curr->next;
+		i++;
+	}
+	return (i);
+}
+
+int		count_rec(t_node *node)
+{
+	if (node == NULL)
+		return (0);
+	return(1 + count_rec(node->next));
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*root;
@@ -203,6 +225,8 @@ int	main(int argc, char **argv)
 		printf("%d\n", curr->x);
 		curr = curr->next;
 	}
+	printf("Linked list has %d elements\n", count(root));
+	printf("Linked list has %d elements\n", count_rec(root));
 	deallocate(&root);
 	return (0);
 }
