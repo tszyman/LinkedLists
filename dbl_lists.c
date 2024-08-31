@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 23:41:12 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 00:19:28 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,32 @@ void	insert_end(t_node **head, int value)
 	*head = new_node;
 }
 
+void	insert_after(t_node *node, int value)
+{
+	t_node	*new_node;
+
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		exit(4);
+	new_node->x = value;
+	new_node->prev = node;
+	new_node->next = node->next;
+	if (node->next != NULL)
+		node->next->prev = new_node;
+	node->next = new_node;
+}
+
+void	remove_node(t_node *node)
+{
+	if (node->prev != NULL)
+		node->prev->next = node->next;
+	if (node->next != NULL)
+		node->next->prev = node->prev;
+	node->next = NULL;
+	node->prev = NULL;
+	free(node);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*tail;
@@ -81,6 +107,8 @@ int	main(int argc, char **argv)
 	insert_beg(&tail, 3);
 	insert_beg(&tail, 1);
 	insert_end(&head, 9);
+	insert_after(tail->next->next, 8);
+	remove_node(tail->next->next);
 	curr = tail;
 	while (curr != NULL)
 	{
@@ -97,6 +125,5 @@ int	main(int argc, char **argv)
 		curr = curr->prev;
 	}
 	deallocate(&tail, &head);
-
 	return (0);
 }
