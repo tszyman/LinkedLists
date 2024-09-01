@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/09/01 13:07:18 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 13:41:33 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ void	remove_node(t_node *node);
 t_node	*find_node(t_node *tail, int value);
 t_node	*find_node_recursive(t_node *node, int value);
 int		count_rec(t_node *node);
+void	reverse_dbl_list(t_node **tail, t_node **head);
+void	serialize(t_node *node);
+void	deserialize(t_node **node);
 
 #endif

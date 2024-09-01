@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 15:10:13 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 14:43:52 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ void	reverse_list(t_node **root);
 int		has_loops(t_node *root);
 int		count(t_node *root);
 int		count_rec(t_node *node);
+void	serialize(t_node *node);
+void	deserialize(t_node **node);
 
 #endif

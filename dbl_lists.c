@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/09/01 13:03:29 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 14:50:58 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,59 @@ int		count_rec(t_node *node)
 	return(1 + count_rec(node->next));
 }
 
+void	reverse_dbl_list(t_node **tail, t_node **head)
+{
+	t_node	*curr;
+	t_node	*next;
+	t_node	*aux;
+
+	curr = *tail;
+	while (curr != NULL)
+	{
+		next = curr -> next;
+		curr->next = curr->prev;
+		curr->prev = next;
+		curr = next;
+	}
+	aux = *tail;
+	*tail = *head;
+	*head = aux;
+}
+
+void	serialize(t_node *node)
+{
+	FILE	*file;
+	t_node	*curr;
+
+	file = fopen("list.txt", "w");
+	if (!file)
+		exit(1);
+	curr = node;
+	while (curr != NULL)
+	{
+		fprintf(file, "%d, ", curr->x);
+		curr = curr->next;
+	}
+	fclose(file);
+}
+
+void	deserialize(t_node **node)
+{
+	FILE	*file;
+	t_node	*curr;
+	int		val;
+
+	file = fopen("list.txt", "r");
+	if (!file)
+		exit(2);
+	
+	while (fscanf(file, "%d, ", &val) > 0)
+	{
+		insert_end(node, val);
+	}
+	fclose(file);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*tail;
@@ -134,6 +187,8 @@ int	main(int argc, char **argv)
 	t_node	*curr;
 	t_node	*aux;
 	t_node	*found;
+	// t_node	*tail2;
+	// t_node	*head2;
 
 	init(&tail, &head, 7);
 	insert_beg(&tail, 3);
@@ -145,6 +200,8 @@ int	main(int argc, char **argv)
 	aux = tail->next;
 	remove_node(tail);
 	tail = aux;
+
+	reverse_dbl_list(&tail, &head);
 
 	curr = tail;
 	while (curr != NULL)
@@ -161,13 +218,28 @@ int	main(int argc, char **argv)
 	
 	printf("The list is %d elements long\n", count_rec(tail));
 	//reversed
-	printf("Reversed list\n");
+	printf("Printing list from the end (head)\n");
 	curr = head;
 	while (curr != NULL)
 	{
 		printf("%d\n", curr->x);
 		curr = curr->prev;
 	}
+	
+	//cant make it work
+	// printf("Serialize/deserialize\n");
+	// serialize(tail);
+	// //init(&tail2, &head2, 999);
+	// tail2 = NULL;
+	// head2 = NULL;
+	// deserialize(&head2);
+	// curr = tail2;
+	// while (curr != NULL)
+	// {
+	// 	printf("%d\n", curr->x);
+	// 	curr = curr->next;
+	// }
 	deallocate(&tail, &head);
+	//deallocate(&tail2, &head2);
 	return (0);
 }

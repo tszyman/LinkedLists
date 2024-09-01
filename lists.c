@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/08/31 23:44:54 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 14:46:33 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	insert_end(t_node **root, int value)
 	if (*root == NULL)
 	{
 		*root = new_node;
-		exit (2);
+		//exit (2);
+		return;
 	}
 	curr = *root;
 	while (curr->next != NULL)
@@ -182,10 +183,45 @@ int		count_rec(t_node *node)
 	return(1 + count_rec(node->next));
 }
 
+void	serialize(t_node *node)
+{
+	FILE	*file;
+	t_node	*curr;
+
+	file = fopen("list.txt", "w");
+	if (!file)
+		exit(1);
+	curr = node;
+	while (curr != NULL)
+	{
+		fprintf(file, "%d, ", curr->x);
+		curr = curr->next;
+	}
+	fclose(file);
+}
+
+void	deserialize(t_node **node)
+{
+	FILE	*file;
+	t_node	*curr;
+	int		val;
+
+	file = fopen("list.txt", "r");
+	if (!file)
+		exit(2);
+	
+	while (fscanf(file, "%d, ", &val) > 0)
+	{
+		insert_end(node, val);
+	}
+	fclose(file);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*root;
 	t_node	*curr;
+	t_node	*root2;
 
 	root = malloc(sizeof(t_node));
 	if (!root)
@@ -227,6 +263,18 @@ int	main(int argc, char **argv)
 	}
 	printf("Linked list has %d elements\n", count(root));
 	printf("Linked list has %d elements\n", count_rec(root));
+
+	printf("Serialize/deserialize\n");
+	root2=NULL;
+	serialize(root);
+	deserialize(&root2);
+	curr = root2;
+	while (curr != NULL)
+	{
+		printf("%d\n", curr->x);
+		curr = curr->next;
+	}
 	deallocate(&root);
+	deallocate(&root2);
 	return (0);
 }
