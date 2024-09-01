@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/09/01 12:31:11 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 13:03:29 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,22 @@ t_node	*find_node(t_node *tail, int value)
 	return (NULL);
 }
 
+t_node	*find_node_recursive(t_node *node, int value)
+{
+	if (!node)
+		return (0);
+	if (node->x == value)
+		return (node);
+	return (find_node_recursive(node->next, value));
+}
+
+int		count_rec(t_node *node)
+{
+	if (node == NULL)
+		return (0);
+	return(1 + count_rec(node->next));
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*tail;
@@ -129,12 +145,7 @@ int	main(int argc, char **argv)
 	aux = tail->next;
 	remove_node(tail);
 	tail = aux;
-	found = find_node(tail, 4);
-	if (!found)
-		printf("No node found\n");
-	else
-		printf("Found value: %d, next: %p\n", found->x, found->next);
-	
+
 	curr = tail;
 	while (curr != NULL)
 	{
@@ -142,6 +153,13 @@ int	main(int argc, char **argv)
 		curr = curr->next;
 	}
 
+	found = find_node_recursive(tail, 8);
+	if (!found)
+		printf("No node found\n");
+	else
+		printf("Found value: %d, next: %p\n", found->x, found->next);
+	
+	printf("The list is %d elements long\n", count_rec(tail));
 	//reversed
 	printf("Reversed list\n");
 	curr = head;
