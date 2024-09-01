@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:22:09 by tszymans          #+#    #+#             */
-/*   Updated: 2024/09/01 00:27:55 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 12:31:11 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,27 @@ void	remove_node(t_node *node)
 	free(node);
 }
 
+t_node	*find_node(t_node *tail, int value)
+{
+	t_node	*curr;
+
+	curr = tail;
+	while (curr != NULL)
+	{
+		if (curr->x == value)
+			return (curr);
+		curr = curr->next;
+	} 
+	return (NULL);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*tail;
 	t_node	*head;
 	t_node	*curr;
 	t_node	*aux;
+	t_node	*found;
 
 	init(&tail, &head, 7);
 	insert_beg(&tail, 3);
@@ -114,6 +129,11 @@ int	main(int argc, char **argv)
 	aux = tail->next;
 	remove_node(tail);
 	tail = aux;
+	found = find_node(tail, 4);
+	if (!found)
+		printf("No node found\n");
+	else
+		printf("Found value: %d, next: %p\n", found->x, found->next);
 	
 	curr = tail;
 	while (curr != NULL)
