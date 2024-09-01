@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:24:48 by tszymans          #+#    #+#             */
-/*   Updated: 2024/09/01 12:52:46 by tomek            ###   ########.fr       */
+/*   Updated: 2024/09/01 13:07:18 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	insert_after(t_node *node, int value);
 void	remove_node(t_node *node);
 t_node	*find_node(t_node *tail, int value);
 t_node	*find_node_recursive(t_node *node, int value);
+int		count_rec(t_node *node);
 
 #endif
